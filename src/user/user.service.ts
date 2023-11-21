@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import * as CryptoJS from 'crypto-js';
 import { RegisterDto } from './dto/register.dto';
+import { UpdateUserDto } from './dto/updateuser.dto';
 
 @Injectable()
 export class UserService {
@@ -51,5 +52,9 @@ export class UserService {
 
   async getUserById(id: string) {
     return await this.userModel.findById(id);
+  }
+
+  async updateUser(id: string, dto: UpdateUserDto) {
+    return await this.userModel.findByIdAndUpdate(id, dto);
   }
 }
