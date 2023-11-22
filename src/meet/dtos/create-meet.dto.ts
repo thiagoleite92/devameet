@@ -1,5 +1,5 @@
 import { IsHexadecimal, MinLength } from 'class-validator';
-import { MeetMessagesHelper } from '../helpers/meetmessages.helper';
+import { MeetMessagesHelper } from '../helpers/meet-messages.helper';
 
 export class CreateMeetDto {
   @MinLength(2, { message: MeetMessagesHelper.CREATE_NAME_NOT_VALID })

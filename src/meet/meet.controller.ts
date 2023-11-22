@@ -5,11 +5,13 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Request,
 } from '@nestjs/common';
 import { MeetService } from './meet.service';
-import { GetMeetDto } from './dtos/getmeet.dto';
-import { CreateMeetDto } from './dtos/createmeet.dto';
+import { GetMeetDto } from './dtos/get-meet.dto';
+import { CreateMeetDto } from './dtos/create-meet.dto';
+import { UpdateMeetDto } from './dtos/update-meet.dto';
 
 @Controller('meet')
 export class MeetController {
@@ -46,5 +48,27 @@ export class MeetController {
     const { meetId } = params;
 
     await this.meetService.deleteMeetByUserId(userId, meetId);
+  }
+
+  @Get('object/:meetId')
+  async getObjectsByMeetId(@Request() req, @Param() params) {
+    const { userId } = req?.user;
+
+    const { meetId } = params;
+
+    return await this.meetService.getMeetObjects(meetId, userId);
+  }
+
+  @Put(':meetId')
+  async updateMeet(
+    @Request() req,
+    @Param() params,
+    @Body() dto: UpdateMeetDto,
+  ) {
+    const { userId } = req?.user;
+
+    const { meetId } = params;
+
+    await this.meetService.update(meetId, userId, dto);
   }
 }
